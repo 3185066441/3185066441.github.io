@@ -1,0 +1,28 @@
+---
+import type { GetStaticPaths } from "astro";
+import Pagination from "../components/control/Pagination.astro";
+import StreetHero from "../components/StreetHero.astro";
+import PostPage from "../components/PostPage.astro";
+import { PAGE_SIZE } from "../constants/constants";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+import { getSortedPosts } from "../utils/content-utils";
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const allBlogPosts = await getSortedPosts();
+	return paginate(allBlogPosts, { pageSize: PAGE_SIZE });
+}) satisfies GetStaticPaths;
+// https://github.com/withastro/astro/issues/6507#issuecomment-1489916992
+
+const { page } = Astro.props;
+
+const len = page.data.length;
+---
+
+<MainGridLayout>
+    {page.currentPage === 1 && <StreetHero />}
+    <section id="latest" aria-labelledby="latest-title">
+        <h2 id="latest-title" class="px-4 pt-2 pb-3 text-xl font-bold text-black/85 dark:text-white/90">{page.currentPage === 1 ? "最近更新" : "更多文章"}</h2>
+        <PostPage page={page}></PostPage>
+    </section>
+    <Pagination class="mx-auto onload-animation" page={page} style={`animation-delay: calc(var(--content-delay) + ${(len)*50}ms)`}></Pagination>
+</MainGridLayout>

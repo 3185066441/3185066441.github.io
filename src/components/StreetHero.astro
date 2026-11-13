@@ -1,0 +1,67 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import street from "../assets/images/summer-street.jpg";
+import { url } from "../utils/url-utils";
+---
+<section class="street-hero" aria-labelledby="street-title">
+    <div class="intro">
+        <h1 id="street-title">夏日街角</h1>
+        <p>写下做过的小项目，也收集日常里值得记住的片段。</p>
+        <div class="actions">
+            <a class="primary" href="#latest">开始阅读 <Icon name="material-symbols:arrow-downward-rounded" /></a>
+            <a class="secondary" href={url("/about/")}>关于这个博客 <Icon name="material-symbols:arrow-outward-rounded" /></a>
+        </div>
+    </div>
+    <div class="art">
+        <Image src={street} alt="夏日街道上，三只宝可梦叠在一起，背后是蓝天、白云和树叶" widths={[400, 736]} sizes="(max-width: 640px) 90vw, 380px" format="webp" loading="eager" fetchpriority="high" />
+        <span class="sun" aria-hidden="true"></span>
+    </div>
+</section>
+<nav class="shortcuts" aria-label="博客快捷入口">
+    <a href={url("/archive/")}><Icon name="material-symbols:inventory-2-outline-rounded" /><span>文章归档</span></a>
+    <a href={url("/rss.xml")} data-no-swup><Icon name="material-symbols:rss-feed-rounded" /><span>RSS 订阅</span></a>
+</nav>
+<style>
+.street-hero {
+    display: grid;
+    grid-template-columns: 1fr minmax(230px, 42%);
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    padding: clamp(1.25rem, 4vw, 3.25rem);
+    border-radius: 1.5rem;
+    background: linear-gradient(125deg, #fff5de 15%, #e5efd5 66%, #c5e6ed);
+    color: #173b3b;
+    overflow: hidden;
+}
+:global(.dark) .street-hero {
+    background: linear-gradient(125deg, #223334, #253e39 68%, #25454f);
+    color: #fff2d6;
+}
+h1 { font-size: clamp(2.6rem, 5vw, 4.75rem); font-weight: 850; line-height: 1.12; letter-spacing: -.065em; }
+p { max-width: 21ch; margin-top: 1rem; line-height: 1.8; font-size: clamp(1rem, 1.45vw, 1.15rem); }
+.actions { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.5rem; }
+.actions a, .shortcuts a { display: inline-flex; align-items: center; gap: .45rem; padding: .65rem .9rem; border-radius: .8rem; font-weight: 650; transition: transform 180ms ease, box-shadow 180ms ease; }
+.primary { background: #20514b; color: #fff8e8; }
+.secondary { background: #fff8e8; color: #24473f; }
+.art { position: relative; min-width: 0; }
+.art img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 63%; border: .35rem solid #fff9ea; border-radius: 1.15rem; box-shadow: 0 .8rem 2rem #163f412c; }
+.sun { position: absolute; top: -.5rem; right: -.45rem; width: 2rem; aspect-ratio: 1; background: #f6c260; border: .2rem solid #fff8e8; border-radius: 50%; box-shadow: 0 .25rem .8rem #402f1935; animation: float 3.8s ease-in-out 2; pointer-events: none; }
+@keyframes float { 50% { transform: translateY(-.45rem); } }
+.shortcuts { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-block: .85rem 1.35rem; }
+.shortcuts a { min-height: 3.4rem; background: var(--card-bg); color: var(--btn-content); }
+.shortcuts a:first-child svg { color: #588331; }
+.shortcuts a:last-child svg { color: #ae5620; }
+@media (hover: hover) {
+    .actions a:hover, .shortcuts a:hover { transform: translateY(-2px); box-shadow: 0 .4rem 1rem #18393324; }
+}
+@media (max-width: 640px) {
+    .street-hero { grid-template-columns: 1fr; gap: 1.35rem; border-radius: 1rem; }
+    .art img { aspect-ratio: 6 / 5; object-position: 50% 65%; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .sun { animation: none; }
+    .actions a, .shortcuts a { transition: none; }
+    .actions a:hover, .shortcuts a:hover { transform: none; }
+}
+</style>
