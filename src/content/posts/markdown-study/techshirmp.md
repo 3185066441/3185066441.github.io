@@ -3,7 +3,7 @@ title: 学习Markdown基本语法
 published: 2023-09-09
 description: This is the first post of my study blog.
 image: ./src/content/posts/markdown-study/fd4aeed1-ca74-448e-b786-68fa236feee6.png
-tags: [markdown, note, 67]
+tags: [markdown, note]
 category: tools
 draft: false
 # lang: jp      # Set only if the post's language differs from the site's language in `config.ts`
