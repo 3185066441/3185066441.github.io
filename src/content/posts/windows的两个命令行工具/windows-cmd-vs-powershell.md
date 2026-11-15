@@ -2,6 +2,7 @@
 title: Windows 为什么同时有 CMD 和 PowerShell？
 published: 2026-11-15
 description: 从命令、管道和脚本三个方面理解 CMD 与 PowerShell 的区别。
+image: ./windows-cmd-vs-powershell-cover.png
 category: 技术笔记
 tags: [Windows, 命令行, PowerShell]
 ---
